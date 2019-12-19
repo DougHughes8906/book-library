@@ -1,0 +1,46 @@
+html {
+	height: 100%;
+	margin: 0px 0px;
+}
+
+body {
+	height: 100%;
+	margin: 0px 0px;
+}
+
+#pageContainer {
+	display: grid;
+	grid-template-rows: 80px 70px 1fr;
+}
+
+h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#mainButtons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mainBtn {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+#booksContainer {
+	display: grid;
+	width: 600px;
+	margin-right: auto;
+	margin-left: auto;	
+	grid-template-rows: 200px 200px 200px 200px 200px 200px;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 50px;
+	padding: 5px;
+}
+
+.book {
+	background-color: green;
+}
