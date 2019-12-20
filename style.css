@@ -30,7 +30,7 @@ h1 {
 	margin-left: 5px;
 }
 
-#booksContainer {
+#bookShelf {
 	display: grid;
 	width: 600px;
 	margin-right: auto;
@@ -41,6 +41,14 @@ h1 {
 	padding: 5px;
 }
 
-.book {
+.book {	
 	background-color: green;
+	padding: 10px;
+}
+
+h3, h4 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
