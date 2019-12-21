@@ -20,6 +20,10 @@ h1 {
 	align-items: center;
 }
 
+p {
+	margin: 0px 0px;
+}
+
 #mainButtons {
 	display: flex;
 	justify-content: center;
@@ -45,6 +49,7 @@ button:focus {
 
 input {
 	width: 175px;
+	font-family: 'Poppins', sans-serif;
 }
 
 .mainBtn {
@@ -165,4 +170,12 @@ h3, h4 {
 
 #hasRead, #notRead {
 	width: 15px;
+}
+
+#errorArea {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	color: red;
+	font-size: 10px;
+	margin: 0px 8px;
 }

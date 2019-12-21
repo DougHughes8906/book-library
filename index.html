@@ -13,16 +13,7 @@
 			<button type="button" id="addBtn" class="mainBtn">Add book</button>
 			<button type="button" id="clrBtn" class="mainBtn">Clear library</button>
 		</div>
-		<div id="bookShelf">
-			<div class="book">
-				<h3>Book Title fdsjh dfhjfjd hsfds hjkfdshj kfdhjs</h3>
-				<h4>Author Name fdhj dfsjhk fjkh dskjh</h4>
-			</div>
-			<div class="book"></div>
-			<div class="book"></div>
-			<div class="book"></div>
-			<div class="book"></div>
-			<div class="book"></div>
+		<div id="bookShelf">	
 		</div>
 	</div>
 	<div id="modal-background">
@@ -46,16 +37,14 @@
 			<div class="add-item" id="finishSelect">
 				<span id="finishPrompt">Have you finished the book?</span>
 				<form>
-					<input type="radio" id="hasRead">Yes
-					<input type="radio" id="notRead">No
+					<input type="radio" id="hasRead" name="readStatus">Yes
+					<input type="radio" id="notRead" name="readStatus">No
 				</form>	
 			</div>
 			<div class="add-item">
 				<button type="button" id="submitBook">Add</button>
 			</div>
-			<div class="add-item">
-				<span id="errorArea"></span>
-			</div>
+			<div class="add-item" id="errorArea"></div>
 		</div>
 		<div id="book-view" class="modal-box">
 			<h2>Book view</h2>
