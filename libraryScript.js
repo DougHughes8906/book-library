@@ -85,3 +85,67 @@ bookLibrary.push(new Book("Crime and Punishment", "Fyodor Dostoevsky",
 addToBookshelf(bookLibrary[0]);
 addToBookshelf(bookLibrary[1]);
 
+// reference to the modal content that is displayed when the
+// user wants to add a book or to view the full details of
+// a book
+const modalCont = document.querySelector("#modal-background");
+
+// reference to the modal box that allows the user to add a 
+// book to the library
+const addBox = document.querySelector("#add-box");
+
+// reference to the modal box that allows the user to view 
+// all of the information for a book and to mark the book as
+// read and remove the book from the library
+const bookViewBox = document.querySelector("#book-view");
+
+// button to add a new book to the library
+const addBtn = document.querySelector("#addBtn");
+
+// button to clear all books from the library
+const clrBtn = document.querySelector("#clrBtn");
+
+// reference to the close button on the add a book box
+const addClose = document.querySelector("#addClose");
+
+// reference to body element
+const body = document.querySelector("body");
+
+// bring up the modal content to add a book to the library when the
+// add button is clicked
+addBtn.addEventListener("click", function() {
+	modalCont.style.display = "block";
+	addBox.style.display = "block";
+	// get the current position of the scroll, so the position of 
+	// the add box can be determined
+	let curPos = document.documentElement.scrollTop || document.body.scrollTop;
+	let newPadding = curPos + 135;
+	newPadding = newPadding.toString() + "px";
+	modalCont.style.padding_top = newPadding;
+	// disallow scrolling while the modal content is up
+	body.style.overflow = "hidden";
+});
+
+// close the modal when the screen is clicked (i.e. outside of the modal
+// box)
+modalCont.addEventListener("click", function() {
+	modalCont.style.display = "none";
+	addBox.style.display = "none";
+	bookViewBox.style.display = "none";
+	body.style.overflow = "visible";
+});
+
+// close the modal when the add box close button is clicked
+addClose.addEventListener("click", function() {
+	modalCont.style.display = "none";
+	addBox.style.display = "none";
+	body.style.overflow = "visible";
+});
+
+// prevent clicks on the add box itself from closing out the modal 
+// content
+addBox.addEventListener("click", function(event) {
+	event.stopPropagation();	
+});
+
+
