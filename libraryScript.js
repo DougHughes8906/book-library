@@ -212,6 +212,26 @@ finishedBtn.addEventListener("click", function() {
 	setWindow(bookLibrary[curBookInd]);	
 });
 
+// listener for the button that removes a book from the library
+removeBtn.addEventListener("click", function() {
+	bookShelf.removeChild(bookLibrary[curBookInd].element);
+	bookLibrary.splice(curBookInd, 1);
+	
+	// update grid layout if this was only book on a row
+	let curLen = bookLibrary.length;
+	if (curLen !== 0 && curLen % 3 === 0) {
+		let oldAtr = bookShelf.style.gridTemplateRows;
+		bookShelf.style.gridTemplateRows = oldAtr.slice(0, oldAtr.length - 6);	
+	}
+
+	// decrement the indices for all book elements after the one deleted
+	for (let i = curBookInd; i < bookLibrary.length; i++) {
+		bookLibrary[i].element.dataset.index = i.toString();
+	}
+	closeBookWindow();
+});
+
+
 // adds a book to the bookshelf. Takes as a parameter the Book
 // object being added.
 function addToBookshelf(title, author, pages, hasRead) {
