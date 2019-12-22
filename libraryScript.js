@@ -55,7 +55,12 @@ function makeBook(title, author, color, backgroundColor) {
 	let newBook = document.createElement("DIV");
 	newBook.classList.add("book");
 	let attsStr = color + " " + backgroundColor;
-	newBook.setAttribute("style", attsStr);	
+	newBook.setAttribute("style", attsStr);
+	// set an attribute representing the book's index in the bookLibrary
+	// array
+	let indexStr = (bookLibrary.length).toString();
+	newBook.setAttribute("data-index", indexStr);
+	
 	let newTitle = document.createElement("H3");
 	newTitle.textContent = title;	
 	let newAuthor = document.createElement("H4");
@@ -66,10 +71,100 @@ function makeBook(title, author, color, backgroundColor) {
 	return newBook;
 }
 
+// holds the index in the bookLibrary array of the book that is
+// currently being viewed in the book window
+let curBookInd = -1;
+// holds true if the book window currently has the finished button
+let hasFinishedBtn = false;
+
+// references to all of the relevant elements in the book view
+// window
+const bookClose = document.querySelector("#bookClose");
+const titleElem = document.querySelector(".book-title");
+const authorSpan = document.querySelector(".book-author");
+const pagesSpan = document.querySelector(".book-pages");
+const finishedPar = document.querySelector(".book-finished");
+const btnsContainer = document.querySelector(".bookBtns");
+const removeBtn = document.querySelector(".removeBtn");
+
+// button that is added to the book view window if the book has
+// not yet been finished (allowing the user to mark as finished)
+const finishedBtn = document.createElement("BUTTON");
+finishedBtn.textContent = "Mark as finished";
+
+// sets up the window to view the total information on a total
+// book
+function setWindow(book) {
+	curBookInd = +((book.element).dataset.index);
+
+	// determine if the user can mark the book as finished
+	if (book.isRead) {
+		if (hasFinishedBtn) {
+			btnsContainer.removeChild(btnsContainer.lastChild);	
+			hasFinishedBtn = false;
+		}
+	}
+	else {
+		if (!hasFinishedBtn) {
+			btnsContainer.appendChild(finishedBtn);	
+			hasFinishedBtn = true;
+		}
+	}
+
+	// set each of the fields according to the book's information
+	titleElem.textContent = book.title;
+	authorSpan.textContent = book.author;
+	pagesSpan.textContent = (book.pages).toString();
+	if (book.isRead) {
+		finishedPar.textContent = "You have finished the book.";
+	}
+	else {
+		finishedPar.textContent = "You have not finished the book.";
+	}	
+}
+
+// opens the book viewing window
+function openBookWindow() {
+	modalCont.style.display = "block";
+	bookViewBox.style.display = "block";
+	// get the current position of the scroll, so the position of 
+	// the book view box can be determined
+	let curPos = document.documentElement.scrollTop || document.body.scrollTop;
+	let newPadding = curPos + 135;
+	newPadding = newPadding.toString() + "px";
+	modalCont.style.padding_top = newPadding;
+	// disallow scrolling while the modal content is up
+	body.style.overflow = "hidden";
+}
+
+// close the modal when the book view box close button is clicked
+bookClose.addEventListener("click", function() {
+	closeBookWindow();	
+});
+
+// close the add book window and clear all inputs / errors
+function closeBookWindow() {		
+	modalCont.style.display = "none";
+	bookViewBox.style.display = "none";
+	body.style.overflow = "visible";
+}
+
+// sets the listener that opens up the window with a book's full
+// information
+function setBookListener(book) {
+	(book.element).addEventListener("click", function() {
+		setWindow(book);
+		openBookWindow();
+	});	
+}
+
 // adds a book to the bookshelf. Takes as a parameter the Book
 // object being added.
-function addToBookshelf(newBook) {
+function addToBookshelf(title, author, pages, hasRead) {
+	let newBook = new Book(title, author, pages, hasRead);
+	bookLibrary.push(newBook);
 	bookShelf.appendChild(newBook.element);
+	setBookListener(newBook);
 }
 
 // holds the current library of books
@@ -79,18 +174,12 @@ let bookLibrary = [];
 // container that holds the visual books)
 const bookShelf = document.querySelector("#bookShelf");
 
-bookLibrary.push(new Book("The Hobbit", "J.R.R. Tolkien", 562, true));
-bookLibrary.push(new Book("Crime and Punishment", "Fyodor Dostoevsky",
-	427, true));
-bookLibrary.push(new Book("The Great Gatsby", "F. Scott Fitzgerald",
-	189, false));
-bookLibrary.push(new Book("The Odyssey", "Homer", 715, true));
-bookLibrary.push(new Book("Catch-22", "Joseph Heller", 311, false));
-addToBookshelf(bookLibrary[0]);
-addToBookshelf(bookLibrary[1]);
-addToBookshelf(bookLibrary[2]);
-addToBookshelf(bookLibrary[3]);
-addToBookshelf(bookLibrary[4]);
+// add books to initial page so user can quickly see functionality
+addToBookshelf("The Hobbit", "J.R.R. Tolkien", 562, true);
+addToBookshelf("Crime and Punishment", "Fyodor Dostoevsky", 427, true);
+addToBookshelf("The Great Gatsby", "F. Scott Fitzgerald", 189, false);
+addToBookshelf("The Odyssey", "Homer", 715, true);
+addToBookshelf("Catch-22", "Joseph Heller", 311, false);
 
 // reference to the modal content that is displayed when the
 // user wants to add a book or to view the full details of
@@ -205,9 +294,8 @@ newBookBtn.addEventListener("click", function() {
 	// no errors, so add the book and exit the window
 	if (!hasErrors) {
 		// add the new book to the library	
-		bookLibrary.push(new Book(titleInput.value, authorInput.value, 
-			+(pagesInput.value), finishedInput.checked));
-		addToBookshelf(bookLibrary[bookLibrary.length - 1]);
+		addToBookshelf(titleInput.value, authorInput.value, 
+			+(pagesInput.value), finishedInput.checked);	
 		// close the window
 		closeAddWindow();
 	}

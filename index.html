@@ -18,7 +18,7 @@
 	</div>
 	<div id="modal-background">
 		<div id="add-box" class="modal-box">
-			<div id="topBar">
+			<div class="topBar">
 				<span class="close" id="addClose">&times;</span>
 			</div>
 			<h2 class="modal-title">Add a new book</h2>
@@ -46,8 +46,18 @@
 			</div>
 			<div class="add-item" id="errorArea"></div>
 		</div>
+
 		<div id="book-view" class="modal-box">
-			<h2>Book view</h2>
+			<div class="topBar">
+				<span class="close" id="bookClose">&times;</span>
+			</div>
+			<h2 class="modal-title book-title">Book view</h2>
+			<p class="book-item">Author: <span class="book-author custom"></span></p>
+			<p class="book-item"># of pages: <span class="book-pages custom"></span>
+			<p class="book-item book-finished"></p>
+			<div class="bookBtns book-item">	
+				<button type="button" class="removeBtn">Remove book</button>
+			</div>
 		</div>
 	</div>	
   <script src="libraryScript.js"></script>

@@ -72,6 +72,13 @@ input {
 	background-color: green;
 	font-family: 'Bitter', serif;	
 	padding: 10px;
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+
+.book:hover {
+	border: 1px solid black;
+	box-shadow: 0px 0px 10px black;	
 }
 
 h3, h4 {
@@ -79,6 +86,14 @@ h3, h4 {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+}
+
+h3 {
+	font-size: 17px;
+}
+
+h4 {
+	font-size: 14px;
 }
 
 #modal-background {
@@ -103,12 +118,21 @@ h3, h4 {
 	border-radius: 10px;
 	z-index: 11;
 	background-color: white;
+	display: grid;
+	grid-gap: 20px;
+	overflow-wrap: break-word;
+	hyphens: auto;
 }
 
 #add-box {
-	display: grid;	
-	grid-template-rows: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-gap: 20px;
+	display: none;	
+	grid-template-rows: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;	
+}
+
+#book-view {	
+	display: none;
+	grid-template-rows: 0.5fr 1.5fr 1fr 1fr 1fr 1fr;
+	height: 320px;	
 }
 
 .add-item {
@@ -119,7 +143,29 @@ h3, h4 {
 	font-size: 13px;	
 }
 
-#topBar {
+.book-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+	font-size: 13px;
+}
+
+.custom {
+	margin: 0px 5px;
+}
+
+.bookBtns {
+	display: flex;
+	align-items: center;
+	justify-content: center;		
+}
+
+.bookBtns > button {
+	margin: 0px 6px;
+}
+
+.topBar {
 	background-color: #b1b1b1;
 	display: grid;	
 	height: 22px;
