@@ -1,1 +1,1 @@
-Allows users to keep track of books that they are reading and have read.
+Allows users to keep track of books that they are reading and have read. Users can store information on their books and can view a simple visual representation of their library. Books can be added and removed from the library. Books can also be marked as read when the user finishes the particular books.

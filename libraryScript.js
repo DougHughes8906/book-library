@@ -250,6 +250,16 @@ function addToBookshelf(title, author, pages, hasRead) {
 	setBookListener(newBook);
 }
 
+// event listener for the button that is used to clear the whole 
+// library (i.e. remove every book)
+clrBtn.addEventListener("click", function() {
+	while (bookShelf.lastChild) {
+		bookShelf.removeChild(bookShelf.lastChild);
+	}		
+	bookLibrary.length = 0;
+	bookShelf.style.gridTemplateRows = "200px";
+});
+
 // holds the current library of books
 let bookLibrary = [];
 
