@@ -18,6 +18,7 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	font-family: 'Righteous', cursive;
 }
 
 p {
@@ -37,10 +38,16 @@ button {
 	border: solid 1px black;
 }
 
-button:hover {
+#addBtn:hover, .finishedBtn:hover, #submitBook:hover {
 	color: white;
-	background-color: gray;
-	box-shadow: 0px 0px 8px gray;
+	background-color: #27f126;
+	box-shadow: 0px 0px 8px #27f126;
+}
+
+#clrBtn:hover, .removeBtn:hover {
+	color: white;
+	background-color: #ec2525;
+	box-shadow: 0px 0px 8px #ec2525;
 }
 
 button:focus {
