@@ -1,3 +1,45 @@
+// reference to the modal content that is displayed when the
+// user wants to add a book or to view the full details of
+// a book
+const modalCont = document.querySelector("#modal-background");
+
+// reference to the modal box that allows the user to add a 
+// book to the library
+const addBox = document.querySelector("#add-box");
+
+// reference to the modal box that allows the user to view 
+// all of the information for a book and to mark the book as
+// read and remove the book from the library
+const bookViewBox = document.querySelector("#book-view");
+
+// button to add a new book to the library
+const addBtn = document.querySelector("#addBtn");
+
+// button to clear all books from the library
+const clrBtn = document.querySelector("#clrBtn");
+
+// reference to the close button on the add a book box
+const addClose = document.querySelector("#addClose");
+
+// reference to body element
+const body = document.querySelector("body");
+
+// button used to submit a new book
+const newBookBtn = document.querySelector("#submitBook");
+
+// each of the input fields for the window that allows the user
+// to add a book
+const titleInput = document.querySelector("#titleInput");
+const authorInput = document.querySelector("#authorInput");
+const pagesInput = document.querySelector("#pagesInput");
+const finishedInput = document.querySelector("#hasRead");
+const unfinishedInput = document.querySelector("#notRead");
+
+// the error area for the window that allows the user to add a book
+const errorArea = document.querySelector("#errorArea");
+
+// holds true if the add book window is currently open
+let addOpen = false;
 
 
 // Book constructor
@@ -149,6 +191,12 @@ function closeBookWindow() {
 	body.style.overflow = "visible";
 }
 
+// prevent clicks on the book view box itself from closing out the modal 
+// content
+bookViewBox.addEventListener("click", function(event) {
+	event.stopPropagation();	
+});
+
 // sets the listener that opens up the window with a book's full
 // information
 function setBookListener(book) {
@@ -158,11 +206,26 @@ function setBookListener(book) {
 	});	
 }
 
+// listener for the button that marks a book as read
+finishedBtn.addEventListener("click", function() {
+	bookLibrary[curBookInd].isRead = true;
+	setWindow(bookLibrary[curBookInd]);	
+});
+
 // adds a book to the bookshelf. Takes as a parameter the Book
 // object being added.
 function addToBookshelf(title, author, pages, hasRead) {
 	let newBook = new Book(title, author, pages, hasRead);
 	bookLibrary.push(newBook);
+	// create another row of the shelf if necessary
+	if (bookLibrary.length % 3 === 1) {
+		if (bookLibrary.length === 1) {
+			bookShelf.setAttribute("style", "grid-template-rows: 200px;");	
+		}
+		else {
+			bookShelf.style.gridTemplateRows += " 200px";
+		}
+	}
 	bookShelf.appendChild(newBook.element);
 	setBookListener(newBook);
 }
@@ -180,49 +243,6 @@ addToBookshelf("Crime and Punishment", "Fyodor Dostoevsky", 427, true);
 addToBookshelf("The Great Gatsby", "F. Scott Fitzgerald", 189, false);
 addToBookshelf("The Odyssey", "Homer", 715, true);
 addToBookshelf("Catch-22", "Joseph Heller", 311, false);
-
-// reference to the modal content that is displayed when the
-// user wants to add a book or to view the full details of
-// a book
-const modalCont = document.querySelector("#modal-background");
-
-// reference to the modal box that allows the user to add a 
-// book to the library
-const addBox = document.querySelector("#add-box");
-
-// reference to the modal box that allows the user to view 
-// all of the information for a book and to mark the book as
-// read and remove the book from the library
-const bookViewBox = document.querySelector("#book-view");
-
-// button to add a new book to the library
-const addBtn = document.querySelector("#addBtn");
-
-// button to clear all books from the library
-const clrBtn = document.querySelector("#clrBtn");
-
-// reference to the close button on the add a book box
-const addClose = document.querySelector("#addClose");
-
-// reference to body element
-const body = document.querySelector("body");
-
-// button used to submit a new book
-const newBookBtn = document.querySelector("#submitBook");
-
-// each of the input fields for the window that allows the user
-// to add a book
-const titleInput = document.querySelector("#titleInput");
-const authorInput = document.querySelector("#authorInput");
-const pagesInput = document.querySelector("#pagesInput");
-const finishedInput = document.querySelector("#hasRead");
-const unfinishedInput = document.querySelector("#notRead");
-
-// the error area for the window that allows the user to add a book
-const errorArea = document.querySelector("#errorArea");
-
-// holds true if the add book window is currently open
-let addOpen = false;
 
 // bring up the modal content to add a book to the library when the
 // add button is clicked
